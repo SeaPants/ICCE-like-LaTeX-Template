@@ -1,0 +1,100 @@
+\usepackage{ascmac}
+\usepackage{amsmath,amssymb}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{latexsym}
+\usepackage{stfloats}
+\usepackage[style=apa, backend=biber]{biblatex}
+
+\renewcommand{\rmdefault}{phv} % Arial-like (Helvetica)
+\renewcommand{\sfdefault}{phv} % Arial-like (Helvetica)
+
+\usepackage[top=25.4truemm, left=25.4truemm, right=25.4truemm, bottom=20.3truemm, headsep=20truept]{geometry}
+\usepackage{setspace}
+
+\pagestyle{empty}
+
+\usepackage{fancyhdr}
+\thispagestyle{fancy}
+\fancyhf{} % empty header and footer
+\newcommand{\header}[1]{\expandafter\def\csname @headercontent\endcsname{#1}}
+\fancyhead[c]{
+	\hangindent=16.21truemm % 9.91+6.3mm
+	\hangafter=1
+	% \setlength{\parindent}{9.91truemm}
+	\centering
+	\fontfamily{ptm}
+	\fontsize{10truept}{10truept}
+	\selectfont
+	\hspace{9.91truemm}
+	\@headercontent
+	}
+\renewcommand{\headrulewidth}{0pt} % remove header line
+% \fancyfoot[C]{\thepage} % if showing page number
+
+
+\newcommand{\institution}[1]{%
+  \expandafter\def\csname @affiliation\theaffiliation\endcsname{#1}%
+  \expandafter\g@addto@macro\expandafter\@affiliations\expandafter{\csname @affiliation\theaffiliation\endcsname}
+  \stepcounter{affiliation}%
+}
+\newcommand{\inst}[1]{\textsuperscript{#1}}
+\newcommand{\correspond}{\textsuperscript{*}}
+\newcommand{\contact}[1]{\expandafter\def\csname @correspondcontact\endcsname{#1}}
+
+\makeatletter
+\newcounter{affiliation}
+\newcommand{\@affiliations}{}
+\renewcommand{\maketitle}{
+
+\vspace*{2truemm}
+
+\begin{center}
+	\setstretch{1.9}
+    \textbf{\fontsize{22truept}{11truept}\selectfont\@title}
+\end{center}
+
+\begin{center}
+	\begin{tabular}{c}
+		\textbf{\@author} \\
+		\@for\@affiliation:=\@affiliations\do{
+			\textsuperscript{\alph{affiliation}}~\textit{\@affiliation} \\
+		}
+		\textsuperscript{*}\@correspondcontact \\
+	\end{tabular}
+\end{center}
+}
+
+\def\@seccntformat#1{
+% \@nameuse{@seccnt@prefix@#1}
+\@nameuse{the#1}
+\@nameuse{@seccnt@postfix@#1}
+% \@nameuse{@seccnt@afterskip}
+}
+% \def\@seccnt@prefix@section{}
+\def\@seccnt@postfix@section{.}
+% \def\@seccnt@afterskip{\hskip0.5zw}
+\makeatother
+
+\usepackage{changepage}
+\newenvironment{justify}
+{\par\rightskip=0pt plus 1fil \leftskip=0pt plus -1fil \parfillskip=0pt \relax}
+{\par}
+
+\renewenvironment{abstract}
+{\begingroup\setstretch{1.1}\fontsize{10truept}{10truept}\selectfont\begin{adjustwidth}{12.7mm}{12.7mm}\begin{justify}\textbf{\abstractname:}\nobreak}
+{\end{justify}\end{adjustwidth}\endgroup\vspace{11truept}}
+
+\newenvironment{keywords}
+{\begingroup\setstretch{1.1}\fontsize{10truept}{10truept}\selectfont\begin{adjustwidth}{12.7mm}{12.7mm}\begin{justify}\textbf{Keywords:}\nobreak}
+{\end{justify}\end{adjustwidth}\endgroup\vspace{11truept}}
+
+\usepackage{titlesec}
+\titleformat*{\section}{\bfseries\fontsize{12truept}{11truept}\selectfont}
+\titlespacing*{\section}{0pt}{22truept}{11truept}
+\titleformat*{\subsection}{\it\fontsize{12truept}{11truept}\selectfont}
+\titlespacing*{\subsection}{0pt}{11truept}{11truept}
+\titleformat*{\subsubsection}{\it\fontsize{11truept}{11truept}\selectfont}
+\titlespacing*{\subsubsection}{0pt}{11truept}{11truept}
+
+\raggedright % Do comment out if you need align to justified.
+\parindent = 9.5truemm
